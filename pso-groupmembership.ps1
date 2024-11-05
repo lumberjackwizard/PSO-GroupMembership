@@ -1,13 +1,9 @@
-# Temporarily hard setting nsxmgr and credentials for development. Get-Credential will be used in the future. 
-# Requires PowerCLI. This was tested using version 11.x. This or any newer version should work. 
+#Created using PowerShell 7.4.5. 
 
-$nsxmgr = '172.16.10.11'
-$nsxuser = 'admin'
-$nsxpasswd = ConvertTo-SecureString -String 'VMware1!VMware1!' -AsPlainText -Force
-$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $nsxuser, $nsxpasswd
 
-#$nsxmgr = Read-Host "Enter NSX Manager IP or FQDN"
-#$Cred = Get-Credential -Title 'NSX Manager Credentials' -Message 'Enter NSX Username and Password'
+
+$nsxmgr = Read-Host "Enter NSX Manager IP or FQDN"
+$Cred = Get-Credential -Title 'NSX Manager Credentials' -Message 'Enter NSX Username and Password'
 
 # Uri will get only groups under infra, and the result is stored in $rawpolicy
 
