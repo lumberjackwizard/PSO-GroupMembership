@@ -1,4 +1,6 @@
-Powershell script created to list the virtual machines that comprise NSX groups. The script will request the nsx manager IP/FQDN, username, and password, which will result in a menu where you'll be prompted with 2 choices: 
+This script was created using PowerShell 7.4.5. 
+
+PowerShell script created to list the virtual machines that comprise NSX groups. The script will request the nsx manager IP/FQDN, username, and password, which will result in a menu where you'll be prompted with 2 choices: 
 
 1.  Enter a specific group for which you want the VM membership or
 2.  Obtain the VM memberhips of all user created groups
