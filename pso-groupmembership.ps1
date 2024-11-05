@@ -43,9 +43,10 @@ function Get-All-Group-Members{
 
 Function Get-Target-Group-Members{
     $groupCSV = "Group Name, Group Member VMs `n"
-    
+    #using a -like for display_name match and appending it with an * for wildcarding
+    #this way users can just get the beginning of a group name correctly and all matches will get pulled
     foreach ($group in $rawpolicy.children.Domain.children.Group | Where-object {$_.display_name -like $target+"*"}){
-       
+       Write-Host "Match found for:" $group.display_name 
         $groupid = $group.id
         
         $groupVMmemberURI = 'https://'+$nsxmgr+'/policy/api/v1/infra/domains/default/groups/'+$groupid+'/members/virtual-machines'
@@ -73,9 +74,9 @@ function Show-Menu
      cls
      Write-Host “================ $Title ================”
      
-     Write-Host “1: Press ‘1’ for a specific NSX Group and it's Membership.”
-     Write-Host “2: Press ‘2’ for all NSX Groups and Memberships .”
-     Write-Host “q: Press ‘q’ to quit.”
+     Write-Host “1: Press ‘1’ for a specific NSX Group and it's Membership”
+     Write-Host “2: Press ‘2’ for all NSX Groups and Memberships”
+     Write-Host “q: Press ‘q’ to quit”
 }
 
 # Main
@@ -101,7 +102,7 @@ do
                 } else {
                 # Output $groupCSV to the file
                 $groupCSV | Out-File -FilePath "./groupoutput.csv" -Encoding UTF8
-                'Done!'
+                'Done! Data output to "groupoutput.csv" in directory where this script was executed'
                 }
                 
 				
@@ -111,7 +112,7 @@ do
 				$groupCSV = Get-All-Group-Members
                 # Output $groupCSV to the file
                 $groupCSV | Out-File -FilePath "./groupoutput.csv" -Encoding UTF8
-				'Done!'
+				'Done! Data output to "groupoutput.csv" in directory where this script was executed'
            } ‘q’ {
                 return
            }
